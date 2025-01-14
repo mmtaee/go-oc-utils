@@ -15,7 +15,7 @@ type OcUserInterface interface {
 	Update(c context.Context, username, password, group string) error
 	Lock(c context.Context, username string) error
 	UnLock(c context.Context, username string) error
-	DeleteUser(c context.Context, username string) error
+	Delete(c context.Context, username string) error
 }
 
 var (
