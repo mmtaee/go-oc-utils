@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/mmtaee/go-oc-utils.git/logger"
+	"github.com/mmtaee/go-oc-utils/logger"
 	"os"
 	"path/filepath"
 	"sort"

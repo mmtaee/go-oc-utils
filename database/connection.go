@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"github.com/mmtaee/go-oc-utils.git/logger"
+	"github.com/mmtaee/go-oc-utils/logger"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	gormLogger "gorm.io/gorm/logger"
