@@ -31,8 +31,8 @@ var (
 	defaultGroup = "/etc/ocserv/defaults/group.conf" // ocserv defaults group file path
 )
 
-// NewOcGroup create new ocserv group obj
-func NewOcGroup() *OcservGroup {
+// NewOcservGroup create new ocserv group obj
+func NewOcservGroup() *OcservGroup {
 	return &OcservGroup{}
 }
 

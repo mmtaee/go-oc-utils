@@ -23,8 +23,8 @@ var (
 	passwdFile  = "/etc/ocserv/ocpasswd" // ocpasswd file path
 )
 
-// NewOcUser create new ocserv user obj
-func NewOcUser() *OcservUser {
+// NewOcservUser create new ocserv user obj
+func NewOcservUser() *OcservUser {
 	return &OcservUser{}
 }
 
