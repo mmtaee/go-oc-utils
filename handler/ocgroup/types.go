@@ -1,7 +1,7 @@
-package ocservGroup
+package ocgroup
 
-// OcGroupConfig ocserv group config
-type OcGroupConfig struct {
+// OcservGroupConfig ocserv group config
+type OcservGroupConfig struct {
 	RxDataPerSec         *string   `json:"rx-data-per-sec"`
 	TxDataPerSec         *string   `json:"tx-data-per-sec"`
 	MaxSameClients       *int      `json:"max-same-clients"`
@@ -20,9 +20,9 @@ type OcGroupConfig struct {
 	SessionTimeout       *int      `json:"session-timeout"`
 }
 
-// OcGroupConfigInfo ocserv group info with config
-type OcGroupConfigInfo struct {
-	Name   string         `json:"name"`
-	Path   string         `json:"-"`
-	Config *OcGroupConfig `json:"config"`
+// OcservGroupConfigInfo ocserv group info with config
+type OcservGroupConfigInfo struct {
+	Name   string             `json:"name"`
+	Path   string             `json:"-"`
+	Config *OcservGroupConfig `json:"config"`
 }

@@ -1,4 +1,4 @@
-package ocservGroup
+package ocgroup
 
 import (
 	"bufio"
@@ -12,8 +12,8 @@ import (
 )
 
 // ParseConfFile parse ocserv group config file in OcGroupConfig data type
-func ParseConfFile(filename string) (*OcGroupConfig, error) {
-	var config OcGroupConfig
+func ParseConfFile(filename string) (*OcservGroupConfig, error) {
+	var config OcservGroupConfig
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
