@@ -63,8 +63,8 @@ func (u *OcUser) UnLock(c context.Context, username string) error {
 	return exec.CommandContext(c, "sh", "-c", command).Run()
 }
 
-// DeleteUser ocserv user deleting account
-func (u *OcUser) DeleteUser(c context.Context, username string) error {
+// Delete ocserv user deleting account
+func (u *OcUser) Delete(c context.Context, username string) error {
 	command := fmt.Sprintf("%s -c %s -d %s", ocpasswdCMD, passwdFile, username)
 	return exec.CommandContext(c, "sh", "-c", command).Run()
 }
