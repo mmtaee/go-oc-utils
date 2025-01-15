@@ -24,7 +24,7 @@ const (
 	Magenta = "\033[35m"
 )
 
-func Log(level int, v interface{}) {
+func getPrefix(level int) string {
 	var prefix string
 
 	switch level {
@@ -41,19 +41,80 @@ func Log(level int, v interface{}) {
 	default:
 		prefix = "[UNKNOWN]"
 	}
+	return prefix
+}
 
-	prefix = fmt.Sprintf("%s %s: %s", prefix, time.Now().Format("2006-01-02 15:04:05"), Reset)
+func logToStdOut(msg string) {
 	log.SetFlags(0)
+	log.Println(msg)
+}
+
+func Log(level int, v interface{}) {
+	var finalMsg string
+
+	prefix := getPrefix(level)
+	prefix = fmt.Sprintf("%s %s: %s", prefix, time.Now().Format("2006-01-02 15:04:05"), Reset)
 
 	switch msg := v.(type) {
 	case string:
-		log.Println(prefix + msg)
+		finalMsg = prefix + msg
 	case error:
-		log.Println(prefix + msg.Error())
+		finalMsg = prefix + msg.Error()
 	default:
-		log.Println(prefix + fmt.Sprint(msg))
+		finalMsg = prefix + fmt.Sprintf("%v", msg)
 	}
+
+	logToStdOut(finalMsg)
 	if level == CRITICAL {
 		os.Exit(1)
 	}
+}
+
+func Logf(level int, format string, v ...interface{}) {
+	var finalMsg string
+	if len(v) > 0 {
+		format = fmt.Sprintf(format, v...)
+	}
+
+	prefix := getPrefix(level)
+	prefix = fmt.Sprintf("%s %s: %s", prefix, time.Now().Format("2006-01-02 15:04:05"), Reset)
+
+	finalMsg = prefix + format
+	logToStdOut(finalMsg)
+
+	if level == CRITICAL {
+		os.Exit(1)
+	}
+}
+
+func Info(msg string) {
+	prefix := fmt.Sprintf("%s[INFO] %s: %s", Green, time.Now().Format("2006-01-02 15:04:05"), Reset)
+	finalMsg := prefix + msg
+	logToStdOut(finalMsg)
+}
+
+func InfoF(msg string, v ...interface{}) {
+	if len(v) > 0 {
+		msg = fmt.Sprintf(msg, v...)
+	}
+	prefix := fmt.Sprintf("%s[INFO] %s: %s", Green, time.Now().Format("2006-01-02 15:04:05"), Reset)
+	finalMsg := prefix + msg
+	logToStdOut(finalMsg)
+}
+
+func Critical(msg string) {
+	prefix := fmt.Sprintf("%s[CRITICAL] %s", Red, time.Now().Format("2006-01-02 15:04:05"))
+	finalMsg := prefix + msg
+	logToStdOut(finalMsg)
+	os.Exit(1)
+}
+
+func CriticalF(msg string, v ...interface{}) {
+	if len(v) > 0 {
+		msg = fmt.Sprintf(msg, v...)
+	}
+	prefix := fmt.Sprintf("%s[CRITICAL] %s", Red, time.Now().Format("2006-01-02 15:04:05"))
+	finalMsg := prefix + msg
+	logToStdOut(finalMsg)
+	os.Exit(1)
 }
