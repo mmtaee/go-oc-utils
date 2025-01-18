@@ -3,6 +3,7 @@ module github.com/mmtaee/go-oc-utils
 go 1.23.1
 
 require (
+	github.com/oklog/ulid/v2 v2.1.0
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.25.12
 )
