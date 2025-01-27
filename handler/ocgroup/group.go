@@ -15,15 +15,16 @@ import (
 type OcservGroup struct{}
 
 // OcservGroupInterface ocserv group methods
-// All methods in this interface need reload server config except List and NameList.
 // Use from Occtl module Reload method to reload server config in a schedule.
 type OcservGroupInterface interface {
 	List(c context.Context) (*[]OcservGroupConfigInfo, error)
 	NameList(c context.Context) (*[]string, error)
-	UpdateDefault(c context.Context, config *map[string]interface{}) error
-	Create(c context.Context, name string, config *map[string]interface{}) error
-	Update(c context.Context, name string, config *map[string]interface{}) error
-	Delete(c context.Context, name string) error
+	DefaultGroup(c context.Context) (*OcservGroupConfig, error)
+	Group(c context.Context, name string) (*OcservGroupConfig, error)
+	UpdateDefault(c context.Context, config *map[string]interface{}) error       // Reload Needed
+	Create(c context.Context, name string, config *map[string]interface{}) error // Reload Needed
+	Update(c context.Context, name string, config *map[string]interface{}) error // Reload Needed
+	Delete(c context.Context, name string) error                                 // Reload Needed
 }
 
 var (
@@ -172,4 +173,23 @@ func (g *OcservGroup) Delete(c context.Context, name string) error {
 		}
 		return nil
 	})
+}
+
+// DefaultGroup retrieve config
+func (g *OcservGroup) DefaultGroup(c context.Context) (*OcservGroupConfig, error) {
+	conf, err := ParseConfFile(defaultGroup)
+	if err != nil {
+		return nil, err
+	}
+	return conf, nil
+}
+
+// Group retrieve config with group name
+func (g *OcservGroup) Group(c context.Context, name string) (*OcservGroupConfig, error) {
+	groupPath := fmt.Sprintf("%s/%s", groupDir, name)
+	conf, err := ParseConfFile(groupPath)
+	if err != nil {
+		return nil, err
+	}
+	return conf, nil
 }
