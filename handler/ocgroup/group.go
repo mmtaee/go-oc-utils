@@ -131,7 +131,7 @@ func (g *OcservGroup) Group(c context.Context, name string) (*OcservGroupConfig,
 // UpdateDefault update default ocserv ocserv group configs
 func (g *OcservGroup) UpdateDefault(c context.Context, config *map[string]interface{}) error {
 	return WithContext(c, func() error {
-		file, err := os.Open(defaultGroup)
+		file, err := os.OpenFile(defaultGroup, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 		if err != nil {
 			return fmt.Errorf("failed to create file: %w", err)
 
