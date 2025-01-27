@@ -109,6 +109,25 @@ func (g *OcservGroup) NameList(c context.Context) (*[]string, error) {
 	return &names, nil
 }
 
+// DefaultGroup retrieve config
+func (g *OcservGroup) DefaultGroup(c context.Context) (*OcservGroupConfig, error) {
+	conf, err := ParseConfFile(defaultGroup)
+	if err != nil {
+		return nil, err
+	}
+	return conf, nil
+}
+
+// Group retrieve config with group name
+func (g *OcservGroup) Group(c context.Context, name string) (*OcservGroupConfig, error) {
+	groupPath := fmt.Sprintf("%s/%s", groupDir, name)
+	conf, err := ParseConfFile(groupPath)
+	if err != nil {
+		return nil, err
+	}
+	return conf, nil
+}
+
 // UpdateDefault update default ocserv ocserv group configs
 func (g *OcservGroup) UpdateDefault(c context.Context, config *map[string]interface{}) error {
 	return WithContext(c, func() error {
@@ -173,23 +192,4 @@ func (g *OcservGroup) Delete(c context.Context, name string) error {
 		}
 		return nil
 	})
-}
-
-// DefaultGroup retrieve config
-func (g *OcservGroup) DefaultGroup(c context.Context) (*OcservGroupConfig, error) {
-	conf, err := ParseConfFile(defaultGroup)
-	if err != nil {
-		return nil, err
-	}
-	return conf, nil
-}
-
-// Group retrieve config with group name
-func (g *OcservGroup) Group(c context.Context, name string) (*OcservGroupConfig, error) {
-	groupPath := fmt.Sprintf("%s/%s", groupDir, name)
-	conf, err := ParseConfFile(groupPath)
-	if err != nil {
-		return nil, err
-	}
-	return conf, nil
 }
