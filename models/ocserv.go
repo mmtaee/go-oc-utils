@@ -31,7 +31,7 @@ type OcUser struct {
 	CreatedAt     time.Time  `json:"created_at" gorm:"autoCreateTime"`
 	UpdatedAt     time.Time  `json:"updated_at" gorm:"autoUpdateTime"`
 	ExpireAt      *time.Time `json:"expire_at"`
-	DeactivatedAt *time.Time `json:"deactivated-at" gorm:"default:NULL"`
+	DeactivatedAt *time.Time `json:"deactivated_at" gorm:"default:NULL"`
 	TrafficType   string     `json:"traffic_type" gorm:"type:varchar(32);not null;default:1" enums:"Free,MonthlyTransmit,MonthlyReceive,TotallyTransmit,TotallyReceive"`
 	TrafficSize   int        `json:"traffic_size" gorm:"not null;default:10"` // in GiB  >> x * 1024 ** 3
 	Rx            int        `json:"rx" gorm:"not null;default:0"`            // Receive in bytes
