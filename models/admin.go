@@ -19,13 +19,14 @@ type User struct {
 }
 
 type UserPermission struct {
-	ID        uint `json:"-" gorm:"primaryKey;autoIncrement"`
-	UserID    uint `json:"-" gorm:"index"`
-	OcUser    bool `json:"oc_user" gorm:"default(false)"`
-	OcGroup   bool `json:"oc_group" gorm:"default(false)"`
-	Statistic bool `json:"statistic" gorm:"default(false)"`
-	Occtl     bool `json:"occtl" gorm:"default(false)"`
-	System    bool `json:"system" gorm:"default(false)"`
+	ID           uint `json:"-" gorm:"primaryKey;autoIncrement"`
+	UserID       uint `json:"-" gorm:"index"`
+	OcUser       bool `json:"oc_user" gorm:"default(false)"`
+	OcGroup      bool `json:"oc_group" gorm:"default(false)"`
+	Statistic    bool `json:"statistic" gorm:"default(false)"`
+	Occtl        bool `json:"occtl" gorm:"default(false)"`
+	System       bool `json:"system" gorm:"default(false)"`
+	SeeServerLog bool `json:"see_server_log" gorm:"default(false)"`
 }
 
 type UserToken struct {
